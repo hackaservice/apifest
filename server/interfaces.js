@@ -1,7 +1,10 @@
 var Joi = require('joi');
 
 var Topic = Joi.object({
-  name: Joi.string().required()
+  name: Joi.string().required(),
+  img: Joi.string(),
+  data: Joi.array(),
+  description: Joi.string()
 });
 
 var User = Joi.object({

@@ -18,9 +18,6 @@ routes.push({
   path: '/topics',
   config: {
     tags: ['api'],
-    plugins: {
-      'hapi-io': 'topics:list'
-    },
     description: 'get available topics for calling user',
     response: {
       schema : Joi.array().items({
@@ -29,7 +26,7 @@ routes.push({
     }
   },
   handler: function (req, reply) {
-    console.log('topics:list');
+    console.log('GET /topics', req.params);
     return Topics.listTopics(reply);
   }
 });
@@ -50,16 +47,10 @@ routes.push({
     }
   },
   handler: function (req, reply) {
-    console.log('topics:mine');
+    console.log('topics:mine', req.params);
 
-    var user = (req.params || req.payload).name
-    var channels = _.keys(db.userTopics[user]);
-
-    var answer = _.map(channels, function(channel) {
-      name: channel
-    });
-
-    return reply(answer);
+    var user = req.params.name;
+    return db.getTopicsByUser(user, reply);
   }
 });
 

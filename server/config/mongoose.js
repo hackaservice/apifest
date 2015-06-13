@@ -13,11 +13,16 @@ if (process.env.NODE_ENV === 'development') {
 
 var db = Mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error'));
+db.on('error', function(err) {
+  console.log('error in mongoose connection', err);
+});
+
 db.once('open', function callback() {
-  console.log("Connection with database succeeded.");
+  console.log("mongoose is ready!");
 });
 
 module.exports = function(callback) {
-  db.once('open', callback);
+  if (callback) {
+    db.once('open', callback);
+  }
 };

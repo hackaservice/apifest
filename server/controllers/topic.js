@@ -1,12 +1,11 @@
-var interfaces = require('../interfaces.js'),
-  User = require('../models/User'),
-  _ = require('lodash'),
+var  _ = require('lodash'),
   async = require('async'),
-  Joi = require('joi');
+  Joi = require('joi'),
+  db = require('../db.js'),
+  User = require('../models/User'),
+  Message = require('../models/Message');
 
 var routes = module.exports.routes = [];
-
-var db = require('../db.js');
 
 routes.push({
   method: 'POST',
@@ -47,12 +46,12 @@ routes.push({
       console.log('User.createOrUpdate', err, user);
 
       // 1# mark user as online
-      db.addOnlineUser(user.name);
+      user.online();
 
       // 2# add topic to user
-      db.addTopicToUser(user.name, topicName);
+      user.addTopic(topicName);
 
-      // 3) deja a este gallo en los usuarios del canal
+      // 3# deja a este gallo en los usuarios del canal
       db.addUserToTopic(topicName, user.name);
 
       return db.countUsersByTopic(topicName, function(err, count) {
@@ -75,19 +74,20 @@ routes.push({
     plugins: {
       'hapi-io': 'topic:message'
     },
+    validate: {
+      payload: {
+        name: Joi.string().required(),
+        message: Joi.string().required(),
+        topic: Joi.string().required()
+      }
+    },
     response: {
       schema : {
         name: Joi.string().required(),
         image: Joi.string().required(),
         topic: Joi.string().required(),
         message: Joi.string().required(),
-      }
-    },
-    validate: {
-      payload: {
-        name: Joi.string().required(),
-        message: Joi.string().required(),
-        topic: Joi.string().required()
+        date: Joi.date()
       }
     },
     description: 'posts a message into a topic'
@@ -97,17 +97,46 @@ routes.push({
 
     // socket io (for broadcast)
     var io = req.server.plugins['hapi-io'].io;
-    var userName = req.payload.name;
 
-    return User.findOne({ name: userName }, function(err, user) {
+    return async.waterfall([
+      function getUser(callback) {
+        var userName = req.payload.name;
+
+        return User.findByName(userName, callback);
+      },
+      function saveMessage(user, callback) {
+        if (!user) {
+          return callback(new Error('no such user'));
+        }
+
+        var message = {
+          message: req.payload.message,
+          topic: req.payload.topic,
+          creator: user._id
+        };
+
+        return Message.create(message, callback);
+      }
+    ], function(err, message) {
       if (err) return reply(err);
 
-      var answer = _.extend(req.payload, user.toJSON());
+      return message.populate('creator', function(err, message) {
+        if (err) return reply(err);
 
-      io.emit('topic:message:new', answer);
-      return reply(answer);
+
+        var answer = {
+          name: message.creator.name,
+          image: message.creator.image,
+          topic: message.topic,
+          message: message.message,
+          date: message.date
+        };
+
+        io.emit('topic:message:new', answer);
+        return reply(answer);
+
+      });
     });
-
   }
 });
 

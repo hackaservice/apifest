@@ -1,1 +1,3 @@
-- ponle redis
+# TODO:
+
+- logout

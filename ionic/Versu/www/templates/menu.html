@@ -3,10 +3,10 @@
 
         <ion-nav-bar class="bar-stable bar-royal">
             <ion-nav-buttons side="left">
-                <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+                <button class="button button-icon button-clear ion-android-exit" menu-toggle="right"></button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-cloud" menu-toggle="right"></button>
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
             </ion-nav-buttons>
         </ion-nav-bar>
 
@@ -34,7 +34,11 @@
             </ion-list> -->
             <ion-list>
                 <ion-item class="item-category">Topicos</ion-item>
-                <ion-item menu-close ng-repeat="myTopics in selectedTopics" ng-click="enterTopic(myTopics)" class="item-history">{{myTopics}}</ion-item>
+                <ion-item menu-close ng-repeat="myTopics in selectedTopics" ng-click="enterTopic(myTopics)" class="item-history">
+                    {{myTopics}}
+                    <!-- Usar como notificacion, cuando hay actividad -->
+                    <i class="icon ion-record"></i>
+                </ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

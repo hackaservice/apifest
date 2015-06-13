@@ -53,3 +53,10 @@
 .item-history:nth-child(odd) {
     background-color: #fafafa;
 }
+
+.item-history i {
+    float: right;
+    color: #8BC34A;
+    font-size: 12px;
+    line-height: 18px;
+}

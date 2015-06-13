@@ -26,7 +26,7 @@ routes.push({
     }
   },
   handler: function (req, reply) {
-    console.log('topics:list');
+    console.log('GET /topics', req.params);
     return Topics.listTopics(reply);
   }
 });

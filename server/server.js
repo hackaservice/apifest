@@ -47,7 +47,6 @@ server.connection({
 
 // Load controllers
 var controllers = Glob.sync('controllers/*.js', {});
-
 _.forEach(controllers, function (controller) {
   var routes = require(__dirname + '/' + controller).routes;
 

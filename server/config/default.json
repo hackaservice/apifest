@@ -2,6 +2,10 @@
   "mongo": {
     "url": "mongodb://mongo/example"
   },
+  "redis": {
+    "host": "redis",
+    "port": 6379
+  },
   "api": {
     "port": 3000
   },

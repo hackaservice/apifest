@@ -42,19 +42,17 @@ routes.push({
 
     // 1) deja a este gallo en el set general de usuarios
     db.users[payload.name] = db.users[payload.name] || {};
-    db.users[payload.name] = user
+    db.users[payload.name] = user;
 
     db.userTopics[payload.name] = db.userTopics[payload.name] || {}
     db.userTopics[payload.name][payload.topic] = true;
+    db.addTopicToUser(user.name, payload.topic);
 
 
     // 2) deja a este gallo en los usuarios del canal
     db.topics[payload.topic] = db.topics[payload.topic] || {};
     db.topics[payload.topic][payload.name] = db.topics[payload.topic][payload.name] || user;
-
-    // 3) send new topic to topics:mine
-    var io = req.server.plugins['hapi-io'].io;
-    io.emit('topics:mine', _.keys(db.userTopics[payload.name]));
+    db.addUserToTopic(payload.topic, user.name);
 
     return reply({
       topic: payload.topic,

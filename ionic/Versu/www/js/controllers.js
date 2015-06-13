@@ -1,6 +1,6 @@
 angular.module('versu.controllers', [])
 
-    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService, socket, $ionicScrollDelegate) {
+    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService) {
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
@@ -8,13 +8,6 @@ angular.module('versu.controllers', [])
         console.log(JSON.stringify($scope.twitterUserData, null, 4));
 
         $scope.selectedTopics = [];
-
-
-        socket.on('topics:mine', function(topicData) {
-            console.log('Se recibe mensaje');
-            console.log(topicData);
-            $scope.selectedTopics = topicData;
-        });
 
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/configuration.html', {
@@ -49,7 +42,19 @@ angular.module('versu.controllers', [])
             //app.chat/:nickname
             //$state.go('app.chat', {nickname : $scope.twitterUserData.screen_name});
             $state.go('app.versuchat', {topic : selectTopic});
-        }
+        };
+
+        $scope.$on('topic:menu:refresh', function(event, topic){
+            console.log('refressshhhh my topicsss' + $scope.selectedTopics.indexOf(topic.name));
+            /*TopicService.getMyTopics($scope.twitterUserData, function(myTopics){
+                console.log(myTopics);
+                $scope.selectedTopics = myTopics;
+            });*/
+            if($scope.selectedTopics.indexOf(topic.name)==-1) {
+                console.log('se agrega topico: ' + topic.name);
+                $scope.selectedTopics.push(topic.name);
+            }
+        });
     })
 
 
@@ -91,11 +96,13 @@ angular.module('versu.controllers', [])
     })
 
 
-    .controller('VersuTopicChat', function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform, UserTwitterService){
+    .controller('VersuTopicChat', function($scope, $rootScope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform, UserTwitterService){
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
+        $scope.actualTopic = $stateParams.topic;
 
         $scope.loadChatTopic = function() {
+            $scope.actualTopic = $stateParams.topic;
             console.log('Se inicia chat para el topico: ' + $stateParams.topic);
             $scope.data = {messages : []};
 
@@ -108,6 +115,7 @@ angular.module('versu.controllers', [])
                 },
                 function(topicUsers){
                     console.log('Numero actual de usuarios: ' + topicUsers.topic + ' - ' + topicUsers.users);
+                    $rootScope.$broadcast('topic:menu:refresh', {name : $scope.actualTopic});
                 }
             );
 

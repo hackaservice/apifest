@@ -34,8 +34,8 @@ angular.module('socket.services', [])
     .factory('socket',function(socketFactory, $rootScope){
         console.log('conexion socket2');
 
-        //var URL_SOCKET = 'http://54.207.124.107:3001';
-        var URL_SOCKET = 'http://146.155.116.26:3001';
+        var URL_SOCKET = 'http://54.207.124.107:443';
+        //var URL_SOCKET = 'http://146.155.116.26:3001';
 
         var isConnected = false;
         //Create socket and connect to http://chat.socket.io

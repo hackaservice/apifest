@@ -3,6 +3,10 @@ angular.module('versu.controllers', [])
     .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService) {
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
+
+        console.log(JSON.stringify($scope.loginData, null, 4));
+        console.log(JSON.stringify($scope.twitterUserData, null, 4));
+
         $scope.selectedTopics = [];
 
         // Create the login modal that we will use later

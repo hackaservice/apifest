@@ -9,13 +9,14 @@ angular.module('versu.login', [])
     $scope.showLoginButton = true;
 
     var doLogin = function () {
+        /*
         UserTwitterService.initialization(function (loginData, userData) {
             console.log('login: se recupera info de usuario: ' + loginData + ' / ' + userData);
             $ionicHistory.nextViewOptions({
                 disableBack: true
-            });
+            });*/
             $state.go('app.home');
-        });
+        //});
     };
 
     if(TwitterService.getStoredToken()!==null) {

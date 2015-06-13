@@ -82,21 +82,28 @@ angular.module('versu.controllers', [])
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
         $scope.loadChatTopic = function() {
+            console.log('Se inicia chat para el topico: ' + $stateParams.topic);
             $scope.data = {messages : []};
 
             $scope.draft = {message:""};
 
             socket.emit('topic:login', {
-                name : $scope.twitterUserData.screen_name,
-                image: $scope.twitterUserData.profile_image_url,
-                topic: $stateParams.topic
-            });
+                    name : $scope.twitterUserData.screen_name,
+                    image: $scope.twitterUserData.profile_image_url,
+                    topic: $stateParams.topic
+                },
+                function(topicUsers){
+                    console.log('Numero actual de usuarios: ' + topicUsers.topic + ' - ' + topicUsers.count);
+                }
+            );
 
             socket.on('topic:message:new', function(messageData) {
                 console.log('Se recibe mensaje');
                 console.log(messageData);
                 if(messageData.topic == $stateParams.topic) {
                     $scope.data.messages.push(messageData);
+                    console.log('Se agrega mensaje a la cola');
+                    $ionicScrollDelegate.scrollBottom();
                 }
             });
         };
@@ -110,7 +117,6 @@ angular.module('versu.controllers', [])
             });
             $scope.draft.message = "";
         }
-
     })
 
 

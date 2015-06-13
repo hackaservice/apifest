@@ -1,0 +1,50 @@
+<ion-view view-title="Home">
+
+  <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button class="button button-icon button-clear ion-cloud" menu-toggle="right"></button>
+  </ion-nav-buttons>
+
+    <ion-content>
+        <ion-slide-box>
+            <ion-slide ng-repeat="topic in getTopics()">
+                <div class="list card">
+                      <div ng-click="enterTopic()" class="item item-avatar">
+                          <img ng-src="{{topic.topic_image_url}}">
+                          <h2>{{topic.topic}}</h2>
+                          <p></p>
+                      </div>
+
+                      <div class="item item-body" ng-click="enterTopic()">
+                          <p>
+                              {{topic.topic_data.text}}
+                          </p>
+                          <p>
+                              <a href="#" class="subdued">1 Like</a>
+                              <a href="#" class="subdued">5 Comments</a>
+                          </p>
+                      </div>
+
+                    <div class="item tabs tabs-secondary tabs-icon-left" ng-click="enterSearch()">
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-thumbsup"></i>
+                            Like
+                        </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-chatbox"></i>
+                            Comment
+                        </a>
+                        <a class="tab-item" href="#">
+                            <i class="icon ion-share"></i>
+                            Share
+                        </a>
+                    </div>
+
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,35 @@
+<ion-view view-title="Chat" class="light-grey">
+
+  <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button class="button button-icon button-clear ion-cloud" menu-toggle="right"></button>
+  </ion-nav-buttons>
+
+    <ion-content>
+        <div has-bouncing="true" class="content">
+            <div ng-show="connected">
+                <div class="log pad2">"Welcome to Socket.IO Chat – ";</div>
+                <div class="log">{{number_message}}</div>
+            </div>
+            <div>
+                <ul>
+                    <li ng-class="{'message':msg.style,'log':!msg.style}"  ng-repeat="msg in messages" >
+                        <span ng-show="msg.style" ng-style="{color:msg.color}" >{{msg.username}} : </span >{{msg.content}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="list light-grey bottommsg">
+            <div class="item item-input-inset light-grey">
+                <label  class="item-input-wrapper line-light-grey nopadtop">
+                    <input class="line-light-grey" ng-change="updateTyping()" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage()">
+                </label>
+                <div class="divsend">
+                    <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage()"></button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

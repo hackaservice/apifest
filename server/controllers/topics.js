@@ -50,6 +50,11 @@ routes.push({
     console.log('topics:mine', req.params);
 
     var user = req.params.name;
+
+    if (!user) {
+      return reply([]);
+    }
+
     return db.getTopicsByUser(user, reply);
   }
 });

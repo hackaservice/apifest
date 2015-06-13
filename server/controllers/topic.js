@@ -1,10 +1,11 @@
 var interfaces = require('../interfaces.js'),
+  User = require('../models/User'),
   _ = require('lodash'),
+  async = require('async'),
   Joi = require('joi');
 
 var routes = module.exports.routes = [];
 
-// diccionario de topics y todos sus participanes (set de parcipantes)
 var db = require('../db.js');
 
 routes.push({
@@ -40,23 +41,28 @@ routes.push({
       image: payload.image
     };
 
-    // 1) deja a este gallo en el set general de usuarios
-    db.users[payload.name] = db.users[payload.name] || {};
-    db.users[payload.name] = user;
+    var topicName = payload.topic;
 
-    db.userTopics[payload.name] = db.userTopics[payload.name] || {}
-    db.userTopics[payload.name][payload.topic] = true;
-    db.addTopicToUser(user.name, payload.topic);
+    return User.createOrUpdate(user, function(err, user) {
+      console.log('User.createOrUpdate', err, user);
 
+      // 1# mark user as online
+      db.addOnlineUser(user.name);
 
-    // 2) deja a este gallo en los usuarios del canal
-    db.topics[payload.topic] = db.topics[payload.topic] || {};
-    db.topics[payload.topic][payload.name] = db.topics[payload.topic][payload.name] || user;
-    db.addUserToTopic(payload.topic, user.name);
+      // 2# add topic to user
+      db.addTopicToUser(user.name, topicName);
 
-    return reply({
-      topic: payload.topic,
-      users: _.size(db.topics[payload.topic])
+      // 3) deja a este gallo en los usuarios del canal
+      db.addUserToTopic(topicName, user.name);
+
+      return db.countUsersByTopic(topicName, function(err, count) {
+        if (err) return reply(err);
+
+        return reply({
+          topic: topicName,
+          users: count
+        });
+      });
     });
   }
 });
@@ -89,12 +95,19 @@ routes.push({
   handler: function (req, reply) {
     console.log('topic:message', req.payload);
 
-    var answer = _.extend(req.payload, db.users[req.payload.name]);
-
+    // socket io (for broadcast)
     var io = req.server.plugins['hapi-io'].io;
-    io.emit('topic:message:new', answer);
+    var userName = req.payload.name;
 
-    return reply(answer);
+    return User.findOne({ name: userName }, function(err, user) {
+      if (err) return reply(err);
+
+      var answer = _.extend(req.payload, user.toJSON());
+
+      io.emit('topic:message:new', answer);
+      return reply(answer);
+    });
+
   }
 });
 
@@ -106,16 +119,16 @@ routes.push({
     plugins: {
       'hapi-io': 'topic:list:users'
     },
+    validate: {
+      params: {
+        topic: Joi.string().required()
+      }
+    },
     response: {
       schema : Joi.array().items({
         name: Joi.string().required(),
         image: Joi.string().required()
       })
-    },
-    validate: {
-      params: {
-        topic: Joi.string().required()
-      }
     },
     description: 'logs you into a topic'
   },
@@ -123,8 +136,23 @@ routes.push({
     console.log('topic:list:users', req.params || req.payload);
 
     var topicName = req.params.topic || req.payload.topic;
-    var answer = _.values(db.topics[topicName]);
 
-    return reply(answer);
+    return db.getUsersByTopic(topicName, function(err, users) {
+      if (err) return reply(err);
+
+      var where = {
+        name: { $in : users }
+      };
+
+      return User.find(where, function(err, users) {
+        if (err) return callback(err);
+
+        var answer = _.map(users, function(user) {
+          return user.toJSON();
+        });
+
+        return reply(answer);
+      });
+    });
   }
 });

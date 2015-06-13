@@ -1,0 +1,49 @@
+.approvees-list .item-avatar {
+    background-color: #FFF;
+    border-bottom: 1px solid #efefef;
+}
+
+.approvees-list .user-name {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 90%;
+    color: #673AB7;
+    font-weight: bold;
+}
+
+.approvees-list .variable {
+    display: block;
+    margin: 0;
+    font-size: 14px;
+}
+
+.approvees-list .avatar {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.approvees-list .avatar > img {
+    max-width: 40px;
+}
+
+.item-category {
+    background-color: #fafafa;
+    padding: 5px 15px;
+    border-bottom: 1px solid #efefef;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    font-weight: bold;
+}
+
+.item-history {
+    padding: 10px 15px;
+    border-bottom: 1px solid #efefef;
+}

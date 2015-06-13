@@ -15,31 +15,26 @@
     </ion-side-menu-content>
 
     <ion-side-menu side="right">
-
-        <ion-header-bar class="bar-stable bar-royal">
-        </ion-header-bar>
-
         <ion-content>
             <ion-list class="approvees-list">
                 <ion-item class="item-avatar">
                     <div class="avatar">
                         <img ng-src="{{twitterUserData.profile_image_url}}"/>
                     </div>
-                    <span class="userName">{{twitterUserData.name}}</span>
+                    <span class="user-name">{{twitterUserData.name}}</span>
                     <span class="variable">{{twitterUserData.location}}</span>
-                    <!--<span class="badge animated zoomIn badge-positive">5</span>-->
                 </ion-item>
             </ion-list>
-            <ion-list>
+            <!-- <ion-list>
                 <div class="button-bar">
                     <a class="button button-icon icon ion-home" menu-close href="#/app/home"></a>
                     <a class="button button-icon icon ion-star" menu-close href="#/app/search"></a>
                     <a class="button button-icon icon ion-gear-a" ng-click="viewConfiguration()"></a>
                 </div>
-            </ion-list>
+            </ion-list> -->
             <ion-list>
-                <ion-item>Topicos</ion-item>
-                <ion-item menu-close ng-repeat="myTopics in selectedTopics" ng-click="enterTopic(myTopics)">{{myTopics}}</ion-item>
+                <ion-item class="item-category">Topicos</ion-item>
+                <ion-item menu-close ng-repeat="myTopics in selectedTopics" ng-click="enterTopic(myTopics)" class="item-history">{{myTopics}}</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

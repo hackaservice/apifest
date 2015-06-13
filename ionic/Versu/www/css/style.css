@@ -1,49 +1,14 @@
 @import "_layout.css";
 @import "_login.css";
 @import "_home.css";
+@import "_menu.css";
 
 /* Empty. Add your own CSS if you like */
 
 /*
 INICIO CSS PARA MOSTRAR FOTOS DE PERFIL
 */
-.approvees-list .userName {
-    display: block;
-    text-transform: uppercase;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 90%;
-    color: #333;
-    font-weight: bold;
-}
-.approvees-list  .variable {
-    display: block;
 
-    font-weight: normal;
-
-    margin: 0;
-    font-size: 11;
-}
-
-.approvees-list  .badge {
-    top: 30px;
-
-}
-
-.avatar {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    max-width: 40px;
-    max-height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.avatar > img {
-    max-width: 40px;
-}
 /*
 FIN CSS PARA MOSTRAR FOTOS DE PERFIL
 */

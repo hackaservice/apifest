@@ -1,6 +1,6 @@
 {
   "mongo": {
-    "url": "mongodb://mongo/example"
+    "url": "mongodb://mongo/versu"
   },
   "redis": {
     "host": "redis",

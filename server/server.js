@@ -8,6 +8,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var _ = require('lodash');
 var Hapi = require('hapi');
 var Glob = require('glob');
+var ip = require('ip').address();
+
 var hapiSwaggered = require('hapi-swaggered')
 var hapiSwaggeredUi = require('hapi-swaggered-ui')
 
@@ -22,6 +24,7 @@ var server = new Hapi.Server();
 
 // Establish connection
 server.connection({
+  host: '0.0.0.0',
   port: process.env.PORT || Config.api.port || 3000,
   routes: {
     cors: {

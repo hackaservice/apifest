@@ -24,6 +24,7 @@
     "hapi-swaggered": "^2.2.0",
     "hapi-swaggered-ui": "^1.4.0",
     "hoek": "^2.14.0",
+    "ip": "^0.3.3",
     "joi": "^6.4.3",
     "lodash": "^3.9.3",
     "lout": "^6.2.2",

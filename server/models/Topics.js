@@ -1,12 +1,19 @@
 var twitter = require('../config/twitter'),
-  _ = require('lodash');
+  _ = require('lodash'),
+  cached;
 
 module.exports = {
-  getTopics: function(callback) {
+
+  getTopics: function getTopics(callback) {
+    // if cached, answer from here
+    if (cached) return callback(null, cached);
+
+    // produce cache
     var world = { id: '1' };
+    var santiago = { id: '23424782'};
 
     var onError = function(err) {
-      console.log('on errro', arguments);
+      console.log('on error', arguments);
       return callback(err);
     };
 
@@ -14,22 +21,18 @@ module.exports = {
       var result = _.first((JSON.parse(results)));
       var trends = result.trends || [];
 
-      _.each(trends, function(trend, index) {
-        console.log("index", index);
-        console.log("trend", trend);
-      });
-
-      return callback(null, _.map(trends, function(trend) {
+      cached = _.map(trends, function(trend) {
         return {
           name: trend.name
         }
-      }));
+      });
+
+      return getTopics(callback);
     };
 
-    twitter.getCustomApiCall('/trends/place.json', world,
-      onError,
-      onSuccess);
+    twitter.getCustomApiCall('/trends/place.json', santiago, onError, onSuccess);
   }
 
 };
+
 

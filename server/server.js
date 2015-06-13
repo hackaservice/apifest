@@ -22,8 +22,13 @@ var server = new Hapi.Server();
 
 // Establish connection
 server.connection({
-  port: process.env.PORT || Config.server.port || 8000,
+  port: process.env.PORT || Config.api.port || 3000,
   labels: ['api']
+});
+
+server.connection({
+  port: (process.env.PORT + 1) || Config.socket.port || 3001,
+  labels: ['socket']
 });
 
 // Load controllers
@@ -50,23 +55,10 @@ mongooseLoader(function() {
 });
 
 // socket.io
-var io = require('socket.io')(server.listener);
-io.on('connection', function (socket) {
-  console.log('a user connected');
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-
-  socket.emit('Oh hii!');
-
-  socket.on('burp', function () {
-    socket.emit('Excuse you!');
-  });
+server.select('socket').register({
+  register: require('hapi-io')
+}, function(err) {
+  if (err) throw err;
 });
 
 server.register({

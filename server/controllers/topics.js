@@ -15,6 +15,8 @@ routes.push({
     }
   },
   handler: function (req, reply) {
+    return Topics.getTopics(reply);
+
     var error = function (err, response, body) {
       return reply(err);
     };

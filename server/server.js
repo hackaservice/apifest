@@ -23,11 +23,21 @@ var server = new Hapi.Server();
 // Establish connection
 server.connection({
   port: process.env.PORT || Config.api.port || 3000,
+  routes: {
+    cors: {
+      origin: ['*']
+    }
+  },
   labels: ['api']
 });
 
 server.connection({
   port: (process.env.PORT + 1) || Config.socket.port || 3001,
+  routes: {
+    cors: {
+      origin: ['*']
+    }
+  },
   labels: ['socket']
 });
 
@@ -60,6 +70,20 @@ server.select('socket').register({
 }, function(err) {
   if (err) throw err;
 });
+
+server.select('socket').route([{
+    method: 'GET',
+    path: '/connection',
+    config: {
+      tags: ['api'],
+      plugins: {
+        'hapi-io': 'connection'
+      }
+    },
+    handler: function(request, reply) {
+      reply('hola eugenio');
+    }
+}]);
 
 server.register({
   register: hapiSwaggered,

@@ -9,6 +9,9 @@ routes.push({
   path: '/listTopics',
   config: {
     tags: ['api'],
+    plugins: {
+      'hapi-io': 'topics:list'
+    },
     description: 'get available topics for calling user',
     response: {
       schema : interfaces.topics

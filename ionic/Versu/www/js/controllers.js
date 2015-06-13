@@ -93,9 +93,11 @@ angular.module('versu.controllers', [])
                     topic: $stateParams.topic
                 },
                 function(topicUsers){
-                    console.log('Numero actual de usuarios: ' + topicUsers.topic + ' - ' + topicUsers.count);
+                    console.log('Numero actual de usuarios: ' + topicUsers.topic + ' - ' + topicUsers.users);
                 }
             );
+
+            console.log('Se envio el topic:login');
 
             socket.on('topic:message:new', function(messageData) {
                 console.log('Se recibe mensaje');

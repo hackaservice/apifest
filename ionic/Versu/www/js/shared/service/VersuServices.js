@@ -9,6 +9,9 @@ angular.module('versu.services', [])
 })
 
 .factory('TopicService', function($http) {
+        var URL_PAGE = 'http://54.207.124.107';
+        //var URL_PAGE = 'http://146.155.116.26:3000';
+
     var topics = [
         {
             topic : "#CopaAmerica2015",
@@ -44,7 +47,7 @@ angular.module('versu.services', [])
         ];
 
         function getTopics(userTwitterData, callback) {
-            $http.post('http://146.155.116.26:3000/listTopics').then(function(response){
+            $http.post(URL_PAGE + '/listTopics').then(function(response){
                 callback(response.data);
             });
         }

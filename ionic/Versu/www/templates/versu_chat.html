@@ -1,0 +1,30 @@
+<ion-view view-title="Versu Chat" class="light-grey">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-cloud" menu-toggle="right"></button>
+    </ion-nav-buttons>
+
+
+    <ion-content>
+        <div class="list">
+            <a class="item item-avatar" href="#" ng-repeat="newMessage in $scope.data.messages">
+                <img ng-src="{{newMessage.image}}">
+                <h2>{{newMessage.name}}</h2>
+                <p>{{newMessage.message}}</p>
+            </a>
+        </div>
+
+        <div class="bar-footer">
+            <label class="item-input-wrapper line-light-grey nopadtop">
+                <input class="line-light-grey" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
+            </label>
+            <div class="divsend">
+                <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -67,16 +67,49 @@ angular.module('versu.controllers', [])
             $state.go('app.search');
         }
 
-        $scope.enterTopic = function() {
+        $scope.enterTopic = function(selectTopic) {
             console.log('Se redirige a chat: ' + $scope.twitterUserData.screen_name);
             //app.chat/:nickname
-            $state.go('app.chat', {nickname : $scope.twitterUserData.screen_name});
+            //$state.go('app.chat', {nickname : $scope.twitterUserData.screen_name});
+            $state.go('app.versuchat', {topic : selectTopic.name});
         }
 
     })
 
 
-    .controller('VersuTopicChat', function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform){
+    .controller('VersuTopicChat', function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform, UserTwitterService){
+        $scope.twitterUserData = UserTwitterService.getTwitterUserData();
+        $scope.loginData = UserTwitterService.getTwitterLoginData();
+
+        $scope.loadChatTopic = function() {
+            $scope.data = {messages : []};
+
+            $scope.draft = {message:""};
+
+            socket.emit('topic:login', {
+                name : $scope.twitterUserData.screen_name,
+                image: $scope.twitterUserData.profile_image_url,
+                topic: $stateParams.topic
+            });
+
+            socket.on('topic:message:new', function(messageData) {
+                console.log('Se recibe mensaje');
+                console.log(messageData);
+                if(messageData.topic == $stateParams.topic) {
+                    $scope.data.messages.push(messageData);
+                }
+            });
+        };
+
+        $scope.sendMessage = function() {
+            console.log('send: ' + $scope.draft.message);
+            socket.emit('topic:message', {
+                name : $scope.twitterUserData.screen_name,
+                message : $scope.draft.message,
+                topic : $stateParams.topic
+            });
+            $scope.draft.message = "";
+        }
 
     })
 

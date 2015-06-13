@@ -5,6 +5,7 @@
 angular.module('socket.services', [])
 
     .factory('socket2', function socket($rootScope) {
+
         var baseUrl = 'http://chat.socket.io';
         console.log('conexion socket2: ' + baseUrl);
         var socket = io.connect('http://chat.socket.io');
@@ -33,13 +34,20 @@ angular.module('socket.services', [])
     .factory('socket',function(socketFactory, $rootScope){
         console.log('conexion socket2');
 
+        var URL_SOCKET = 'http://54.207.124.107:3001';
+        //var URL_SOCKET = 'http://146.155.116.26:3001';
+
         var isConnected = false;
         //Create socket and connect to http://chat.socket.io
-        var myIoSocket = io.connect('http://146.155.116.26:3001');
+        var myIoSocket = io.connect(URL_SOCKET);
 
         myIoSocket.on('connect', function(){
             isConnected = true;
             myIoSocket.emit('connection', {});
+
+            myIoSocket.emit('topics:list', {}, function(data){
+                console.log(data);
+            });
         });
 
         mySocket = socketFactory({

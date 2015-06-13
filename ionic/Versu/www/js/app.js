@@ -64,6 +64,16 @@ angular.module('starter',
         }
     })
 
+    .state('app.versuchat', {
+      url: "/versuchat/:topic",
+      views: {
+          'menuContent': {
+              templateUrl: "templates/versu_chat.html",
+              controller: 'VersuTopicChat'
+          }
+      }
+    })
+
     .state('app.search', {
       url: "/search",
       views: {

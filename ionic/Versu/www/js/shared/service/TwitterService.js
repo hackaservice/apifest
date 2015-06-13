@@ -6,12 +6,16 @@ angular.module('twitterApi', [])
 .factory('TwitterService', function($cordovaOauth, $cordovaOauthUtility, $http, $resource, $q) {
     // 1
     var twitterKey = "STORAGE.TWITTER.NEW_KEY";
-    var clientId = 'XiATofvGofwNFUvBb8tSwY0cG';
+    //var clientId = 'XiATofvGofwNFUvBb8tSwY0cG';
     //var clientId = 'vYzBSm5uy3sSlsWpBDpOcZduI';
-    var clientSecret = 'zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh';
+
+    //var clientSecret = 'zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh';
     //var clientSecret = 'l0jtq58413gC0RSRWymNcwPUpIql5sjZEVtqefJ7zDjuFXPkWm';
 
-    // 2
+    var clientId = '79q7CmbVzEkP2kPGk9IgN4kuE';
+    var clientSecret = 'wRRQ99oqH1TaXCiBZHsHa2Ii7CQOsCsjtvSV1i9SsXUPJ9QuJ2';
+
+            // 2
     function storeUserToken(data) {
         window.localStorage.setItem(twitterKey, JSON.stringify(data));
     };

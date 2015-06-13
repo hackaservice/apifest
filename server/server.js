@@ -24,7 +24,7 @@ var server = new Hapi.Server();
 
 // Establish connection
 server.connection({
-  host: ip,
+  host: '0.0.0.0',
   port: process.env.PORT || Config.api.port || 3000,
   routes: {
     cors: {
@@ -35,7 +35,7 @@ server.connection({
 });
 
 server.connection({
-  host: ip,
+  host: '0.0.0.0',
   port: (process.env.PORT + 1) || Config.socket.port || 3001,
   routes: {
     cors: {

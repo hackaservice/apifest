@@ -5,3 +5,24 @@
 .bar-stable.bar-royal {
   background-color: #673AB7;
 }
+
+.slider-pager {
+  margin-top: 15px;
+}
+
+.slider-pager .slider-pager-page {
+  width: 8px;
+}
+
+.slider-pager-page .icon {
+  color: #FFF;
+  font-size: 8px;
+}
+
+.button.button-royal.button-outline {
+  color: #673AB7;
+  border-color: #673AB7;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: bold;
+}

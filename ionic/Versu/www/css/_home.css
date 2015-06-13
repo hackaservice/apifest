@@ -1,3 +1,70 @@
 .background .ion-log-out {
   font-size: 12px;
 }
+
+.card-bg {
+  border-radius: 8px;
+}
+
+.item button {
+  margin: 0;
+  border-radius: 4px;
+}
+
+.card {
+  box-shadow: none;
+  border-color: #FFF;
+}
+
+.card-title {
+  background-color: #FFEB3B;
+  border-radius: 8px 8px 0 0;
+  padding: 30px 15px;
+}
+
+.card-title h2 {
+  font-weight: bold;
+  text-align: center;
+  color: #673AB7;
+  font-size: 24px;
+}
+
+.item {
+  border-color: #FFF;
+}
+
+.item-body p {
+  margin: 0;
+}
+
+.item-body img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  float: left;
+}
+
+.item-body .item-user {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.item-user h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #673AB7;
+}
+
+.item-user p {
+  margin: 0;
+  font-size: 12px;
+  color: #9B9B9B;
+}
+
+p.context-description {
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  margin-top: 10px;
+  color: #4A4A4A;
+}

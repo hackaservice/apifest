@@ -43,9 +43,15 @@ angular.module('versu.services', [])
         }
         ];
 
+        function getTopics(userTwitterData, callback) {
+            $http.post('http://146.155.116.26:3000/listTopics').then(function(response){
+                callback(response.data);
+            });
+        }
+
     return {
-        getTopics : function() {
-            return topics;
+        getTopics : function(userTwitterData, callback) {
+            return getTopics(userTwitterData, callback);
         }
     };
 })

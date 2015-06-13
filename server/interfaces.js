@@ -17,6 +17,7 @@ var Message = Joi.object({
 
 module.exports = {
   topic: Topic,
+  topics: Joi.array().items(Topic),
   user: User,
   message: Message
 };

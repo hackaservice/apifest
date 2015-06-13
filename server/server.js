@@ -10,14 +10,6 @@ var Hapi = require('hapi');
 var Glob = require('glob');
 var hapiSwaggered = require('hapi-swaggered')
 var hapiSwaggeredUi = require('hapi-swaggered-ui')
-var Twitter = require('twitter-node-client').Twitter;
-
-var twitterConfig = {
-    "consumerKey": "XiATofvGofwNFUvBb8tSwY0cG",
-    "consumerSecret": "zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh"
-};
-
-var twitter = new Twitter(twitterConfig);
 
 // Load configuration
 var Config = require('getconfig');
@@ -27,8 +19,6 @@ var mongooseLoader = require('./config/mongoose');
 
 // Instantiate server
 var server = new Hapi.Server();
-server.twitter = twitter;
-server._ = _;
 
 // Establish connection
 server.connection({
@@ -78,29 +68,6 @@ io.on('connection', function (socket) {
     socket.emit('Excuse you!');
   });
 });
-
-/*
-// default GET /
-server.route({
-  method: 'GET',
-  path: '/',
-  handler: function (request, reply) {
-    reply('Hello, world!');
-  }
-});
-*/
-
-// default GET /public/{param*}
-server.route({
-  method: 'GET',
-  path: '/public/{param*}',
-  handler: {
-    directory: {
-      path: 'public'
-    }
-  }
-});
-
 
 server.register({
   register: hapiSwaggered,

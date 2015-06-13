@@ -4,5 +4,9 @@
   },
   "server": {
     "port": 3000
+  },
+  "twitter": {
+    "consumerKey": "XiATofvGofwNFUvBb8tSwY0cG",
+    "consumerSecret": "zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh"
   }
 }

@@ -1,4 +1,4 @@
-<ion-view view-title="{{actualTopic}}" class="light-grey">
+<ion-view view-title="{{actualTopic}}">
 
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-chevron-left" menu-toggle="" ng-click="backToHome()"></button>
@@ -18,13 +18,12 @@
         </div>
 
         <div class="bar-footer">
-            <label class="item-input-wrapper line-light-grey nopadtop">
+            <label class="item-input-wrapper">
                 <input class="line-light-grey" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
+                <div class="send-button">
+                    <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
+                </div>
             </label>
-            <div class="divsend">
-                <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
-            </div>
         </div>
     </ion-content>
-
 </ion-view>

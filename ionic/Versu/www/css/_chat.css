@@ -1,0 +1,30 @@
+.item-input-wrapper {
+  border-top: 1px solid #ececec;
+  background-color: #FFF;
+  border-radius: 0;
+  padding-right: 0px; 
+  padding-left: 15px;
+}
+
+.line-light-grey{
+  background-color: #FFF;
+  border:none;
+  height: 40px !important;
+  width: 100%;
+  color: #4a4a4a;
+  font-size: 16px;
+}
+
+.send-button {
+  float: right;
+  width: 40px;
+  margin-right: 15px; 
+}
+
+.send-button button.button.button-clear.ion-android-send.iconsend {
+  color: #673AB7;
+}
+
+.iconsend{
+  font-size: 21px;
+}

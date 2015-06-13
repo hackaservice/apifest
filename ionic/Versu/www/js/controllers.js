@@ -48,7 +48,10 @@ angular.module('versu.controllers', [])
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
         $scope.getTopics = function() {
-            return TopicService.getTopics();
+            TopicService.getTopics($scope.twitterUserData, function(response) {
+                console.log(response);
+                return response;
+            });
         };
 
         $scope.enterSearch = function() {

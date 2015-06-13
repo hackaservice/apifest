@@ -61,20 +61,6 @@ server.select('socket').register({
   if (err) throw err;
 });
 
-server.select('socket').route([{
-    method: 'GET',
-    path: '/connection',
-    config: {
-      tags: ['api'],
-      plugins: {
-        'hapi-io': 'connection'
-      }
-    },
-    handler: function(request, reply) {
-      reply('hola eugenio');
-    }
-}]);
-
 server.register({
   register: hapiSwaggered,
   options: {

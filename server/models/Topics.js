@@ -3,10 +3,11 @@ var twitter = require('../config/twitter'),
   cached;
 
 module.exports = {
-
-  getTopics: function getTopics(callback) {
+  listTopics: function listTopics(callback) {
     // if cached, answer from here
-    if (cached) return callback(null, cached);
+    if (cached) {
+      return callback(null, cached);
+    }
 
     // produce cache
     var world = { id: '1' };
@@ -27,7 +28,7 @@ module.exports = {
         }
       });
 
-      return getTopics(callback);
+      return listTopics(callback);
     };
 
     twitter.getCustomApiCall('/trends/place.json', santiago, onError, onSuccess);

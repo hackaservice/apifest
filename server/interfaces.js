@@ -14,3 +14,11 @@ var Message = Joi.object({
   content: Joi.string().required(),
   timestamp: Joi.date()
 });
+
+module.exports = {
+  topic: Topic,
+  user: User,
+  message: Message
+};
+
+

@@ -1,0 +1,42 @@
+sudo aptitude update
+sudo aptitude safe-upgrade
+sudo aptitude install git npm
+sudo apt-get install build-essential libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+git clone https://github.com/hackaservice/apifest
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo service mongod start
+
+npm install -g ionic
+
+
+
+
+
+sudo apt-get install nginx
+sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default_resp
+sudo nano /etc/nginx/sites-available/default
+sudo service nginx restart
+
+
+server {
+  listen 3100;
+
+  location / {
+    proxy_pass              http://localhost:3000/;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_connect_timeout   150;
+    proxy_send_timeout      100;
+    proxy_read_timeout      100;
+    proxy_buffers           4 32k;
+    client_max_body_size    8m;
+    client_body_buffer_size 128k;
+
+  }
+ }

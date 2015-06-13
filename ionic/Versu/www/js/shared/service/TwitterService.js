@@ -4,6 +4,7 @@
 angular.module('twitterApi', [])
 
 .factory('TwitterService', function($cordovaOauth, $cordovaOauthUtility, $http, $resource, $q) {
+
     // 1
     var twitterKey = "STORAGE.TWITTER.NEW_KEY";
     //var clientId = 'XiATofvGofwNFUvBb8tSwY0cG';
@@ -14,6 +15,8 @@ angular.module('twitterApi', [])
 
     var clientId = '79q7CmbVzEkP2kPGk9IgN4kuE';
     var clientSecret = 'wRRQ99oqH1TaXCiBZHsHa2Ii7CQOsCsjtvSV1i9SsXUPJ9QuJ2';
+
+        var otherUser = null;
 
             // 2
     function storeUserToken(data) {
@@ -91,6 +94,14 @@ angular.module('twitterApi', [])
             }
             return deferred.promise;
         },
+        setOtherUser : function(_otherUser) {
+            otherUser = _otherUser;
+        }
+        ,
+        getOtherUser : function() {
+            return otherUser;
+        }
+        ,
         // 5
         isAuthenticated: function () {
             return getStoredToken() !== null;

@@ -8,15 +8,16 @@ angular.module('versu.login', [])
 
     $scope.showLoginButton = true;
 
+    $scope.userLoginData = {};
+
     var doLogin = function () {
-        /*
         UserTwitterService.initialization(function (loginData, userData) {
-            console.log('login: se recupera info de usuario: ' + loginData + ' / ' + userData);
+            //console.log('login: se recupera info de usuario: ' + loginData + ' / ' + userData);
             $ionicHistory.nextViewOptions({
                 disableBack: true
-            });*/
+            });
             $state.go('app.home');
-        //});
+        });
     };
 
     if(TwitterService.getStoredToken()!==null) {
@@ -29,5 +30,11 @@ angular.module('versu.login', [])
 
     $scope.login = function() {
         doLogin();
+    };
+
+    $scope.otherLogin = function() {
+        console.log($scope.userLoginData.username + ' usuario chanta entrando!');
+        TwitterService.setOtherUser($scope.userLoginData.username);
+        $state.go('app.home');
     };
 })

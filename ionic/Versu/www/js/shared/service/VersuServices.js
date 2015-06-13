@@ -47,7 +47,7 @@ angular.module('versu.services', [])
         ];
 
         function getTopics(userTwitterData, callback) {
-            $http.post(URL_PAGE + '/listTopics').then(function(response){
+            $http.get(URL_PAGE + '/topics').then(function(response){
                 callback(response.data);
             });
         }
@@ -64,7 +64,7 @@ angular.module('versu.services', [])
         id: "14924202",
         id_str: "14924202",
         name: "Eugenio Contreras",
-        screen_name: "egacl",
+        screen_name: "daplay",
         location: "Chile",
         profile_location: null,
         description: "Ingeniero en Informática amante del desarrollo de software de calidad, metodologías ágiles y el deporte!!!",
@@ -173,7 +173,7 @@ angular.module('versu.services', [])
         return {
             initialization: function (callback) {
                 //Se autentica el usuario en twitter
-                /*if (TwitterService.isAuthenticated() == true) {
+                if (TwitterService.isAuthenticated() == true) {
                     console.log('VersuService: El usuario ya se encuentra logeado en twitter');
                     twitterLoginData = TwitterService.getStoredToken();
                     getTwitterUserProfile(callback);
@@ -187,12 +187,22 @@ angular.module('versu.services', [])
                             getTwitterUserProfile(callback);
                         }
                     });
-                }*/
+                }
             },
             getTwitterUserData: function () {
+                console.log(TwitterService.getOtherUser() + 'hackeando la shit 1');
+                if(TwitterService.getOtherUser()!=null) {
+                    userTwitterData.screen_name = TwitterService.getOtherUser();
+                    userTwitterData.name = TwitterService.getOtherUser();
+                }
                 return userTwitterData;
             },
             getTwitterLoginData: function () {
+                console.log(TwitterService.getOtherUser() + 'hackeando la shit 2');
+                if(TwitterService.getOtherUser()!=null) {
+                    twitterLoginData.screen_name = TwitterService.getOtherUser();
+                    userTwitterData.name = TwitterService.getOtherUser();
+                }
                 return twitterLoginData;
             }
         };

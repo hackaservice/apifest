@@ -39,7 +39,7 @@
             </ion-list>
             <ion-list>
                 <ion-item>Topicos</ion-item>
-                <ion-item menu-close ng-repeat="myTopics in selectedTopics">{{myTopics}}</ion-item>
+                <ion-item menu-close ng-repeat="myTopics in selectedTopics" ng-click="enterTopic(myTopics)">{{myTopics}}</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

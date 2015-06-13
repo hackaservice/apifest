@@ -1,6 +1,6 @@
 angular.module('versu.controllers', [])
 
-    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService, socket) {
+    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService, socket, $ionicScrollDelegate) {
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
@@ -8,6 +8,13 @@ angular.module('versu.controllers', [])
         console.log(JSON.stringify($scope.twitterUserData, null, 4));
 
         $scope.selectedTopics = [];
+
+
+        socket.on('topics:mine', function(topicData) {
+            console.log('Se recibe mensaje');
+            console.log(topicData);
+            $scope.selectedTopics = topicData;
+        });
 
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/configuration.html', {
@@ -36,6 +43,13 @@ angular.module('versu.controllers', [])
                 $scope.closeConfiguration();
             }, 1000);
         };
+
+        $scope.enterTopic = function(selectTopic) {
+            console.log('Se redirige a chat: ' + $scope.twitterUserData.screen_name);
+            //app.chat/:nickname
+            //$state.go('app.chat', {nickname : $scope.twitterUserData.screen_name});
+            $state.go('app.versuchat', {topic : selectTopic});
+        }
     })
 
 
@@ -122,7 +136,7 @@ angular.module('versu.controllers', [])
     })
 
 
-    .controller('ChatController',function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform) {
+    /*.controller('ChatController',function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform) {
         console.log('Se inicia chat controller');
         var typing = false;
         var lastTypingTime;
@@ -278,4 +292,4 @@ angular.module('versu.controllers', [])
         {
             return number_of_users === 1 ? "there's 1 participant":"there are " + number_of_users + " participants";
         }
-    })
+    })*/

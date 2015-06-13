@@ -54,6 +54,7 @@ angular.module('starter',
         }
     })
 
+      /*
     .state('app.chat', {
         url: "/chat/:nickname",
         views: {
@@ -63,6 +64,7 @@ angular.module('starter',
             }
         }
     })
+    */
 
     .state('app.versuchat', {
       url: "/versuchat/:topic",

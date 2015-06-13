@@ -1,0 +1,21 @@
+server:
+  build: .
+  volumes:
+    - .:/home/docker/source
+  links:
+    - mongo
+  ports:
+    - "3000:3000"
+  user: docker
+  working_dir: /home/docker/source
+  command: bash start.sh
+
+mongo:
+  image: mongo:3.0
+  ports:
+    - "27017:27017"
+
+redis:
+  image: redis:3.0
+  ports:
+    - "6379:6379"

@@ -1,0 +1,158 @@
+// Set configuration root directory
+process.env.GETCONFIG_ROOT = './config';
+
+// Configure default environment
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// Load modules
+var _ = require('lodash');
+var Hapi = require('hapi');
+var Glob = require('glob');
+var hapiSwaggered = require('hapi-swaggered')
+var hapiSwaggeredUi = require('hapi-swaggered-ui')
+var Twitter = require('twitter-node-client').Twitter;
+
+var twitterConfig = {
+    "consumerKey": "XiATofvGofwNFUvBb8tSwY0cG",
+    "consumerSecret": "zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh"
+};
+
+var twitter = new Twitter(twitterConfig);
+
+// Load configuration
+var Config = require('getconfig');
+
+// Load database configuration
+var mongooseLoader = require('./config/mongoose');
+
+// Instantiate server
+var server = new Hapi.Server();
+server.twitter = twitter;
+server._ = _;
+
+// Establish connection
+server.connection({
+  port: process.env.PORT || Config.server.port || 8000,
+  labels: ['api']
+});
+
+// Load controllers
+var controllers = Glob.sync('controllers/*.js', {});
+
+_.forEach(controllers, function (controller) {
+  var routes = require(__dirname + '/' + controller).routes;
+
+  if (_.isEmpty(routes)) {
+    console.log('- no routes from %s', controller);
+  } else {
+    console.log('- loading %d routes from %s', routes.length, controller);
+    server.route(routes);
+  }
+});
+
+// Load models
+mongooseLoader(function() {
+  var models = Glob.sync('models/*.js', {});
+  _.forEach(models, function (model) {
+    require(__dirname + '/' + model);
+    console.log('- Loaded model from %s', model);
+  });
+});
+
+// socket.io
+var io = require('socket.io')(server.listener);
+io.on('connection', function (socket) {
+  console.log('a user connected');
+
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+
+  socket.emit('Oh hii!');
+
+  socket.on('burp', function () {
+    socket.emit('Excuse you!');
+  });
+});
+
+/*
+// default GET /
+server.route({
+  method: 'GET',
+  path: '/',
+  handler: function (request, reply) {
+    reply('Hello, world!');
+  }
+});
+*/
+
+// default GET /public/{param*}
+server.route({
+  method: 'GET',
+  path: '/public/{param*}',
+  handler: {
+    directory: {
+      path: 'public'
+    }
+  }
+});
+
+
+server.register({
+  register: hapiSwaggered,
+  options: {
+    tags: {
+      '/foobar': 'Example foobar description'
+    },
+    info: {
+      title: 'Example API',
+      description: 'Tiny hapi-swaggered example',
+      version: '1.0'
+    }
+  }
+}, {
+  select: 'api',
+  routes: {
+    prefix: '/swagger'
+  }
+}, function (err) {
+  if (err) throw err;
+});
+
+server.register({
+  register: hapiSwaggeredUi,
+  options: {
+    title: 'Example API',
+    authorization: {
+      field: 'apiKey',
+      scope: 'query' // header works as well
+    }
+  }
+}, {
+  select: 'api',
+  routes: {
+    prefix: '/docs'
+  }
+}, function (err) {
+  if (err) throw err;
+});
+
+server.route({
+  path: '/',
+  method: 'GET',
+  handler: function (request, reply) {
+    reply.redirect('/docs')
+  }
+});
+
+if (!module.parent) {
+  server.start(function () {
+    console.info('Server started at ' + server.info.uri);
+  });
+}
+
+module.exports = server;

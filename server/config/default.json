@@ -1,0 +1,8 @@
+{
+  "mongo": {
+    "url": "mongodb://mongo/example"
+  },
+  "server": {
+    "port": 3000
+  }
+}

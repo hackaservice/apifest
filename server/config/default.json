@@ -2,11 +2,14 @@
   "mongo": {
     "url": "mongodb://mongo/example"
   },
-  "server": {
+  "api": {
     "port": 3000
   },
+  "socket": {
+    "port": 3001
+  },
   "twitter": {
-    "consumerKey": "XiATofvGofwNFUvBb8tSwY0cG",
-    "consumerSecret": "zMgQ9Yw6awSkxTj08DyVa95HZVs46rohGPkc2GJuKEbW5XTEJh"
+    "consumerKey": "79q7CmbVzEkP2kPGk9IgN4kuE",
+    "consumerSecret": "wRRQ99oqH1TaXCiBZHsHa2Ii7CQOsCsjtvSV1i9SsXUPJ9QuJ2"
   }
 }

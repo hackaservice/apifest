@@ -35,6 +35,7 @@ server.connection({
 });
 
 server.connection({
+  host: ip,
   port: (process.env.PORT + 1) || Config.socket.port || 3001,
   routes: {
     cors: {

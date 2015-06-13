@@ -1,7 +1,14 @@
-<ion-view view-title="">
-
-    <ion-content class="padding" ng-if="showLoginButton==true">
-        <button class="button button-block button-calm" ng-click="login()">Twitter</button>
-    </ion-content>
-
+<ion-view view-title="" class="background">
+    <div class="login-logo">
+        <div class="logo"></div>
+    </div>
+    <div class="login-description">
+        <h3>¡Bienvenido!</h3>
+        <p>Discutamos temas de contingencia.</p>
+    </div>
+    <div class="login-button-container">
+        <ion-content ng-if="showLoginButton==true">
+            <button class="button button-outline button-block button-light button-login" ng-click="login()">Conectar con Twitter</button>
+        </ion-content>
+    </div>
 </ion-view>

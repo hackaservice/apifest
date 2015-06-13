@@ -1,8 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  redis = require('../config/redis'),
+  OnlineUsers = require('./OnlineUsers.js');
 
-var schema = new mongoose.Schema({
+var schema = new Schema({
   name: {
     type: String,
+    unique: true,
     required: true
   },
   image: {
@@ -30,6 +34,32 @@ schema.static('createOrUpdate', function (user, callback) {
   });
 });
 
+// static methods
+schema.static('findByName', function (userName, callback) {
+  var model = this;
+  var where = { name: userName };
+
+  return model.findOne(where, callback);
+});
+// end static methods
+
+// instance methods
+schema.method('online', function () {
+  OnlineUsers.add(this.name);
+});
+
+schema.method('addTopic', function (topicName) {
+  var key = "user:" + this.name + ":topics";
+  redis.sadd([key, topicName]);
+});
+
+schema.method('getTopics', function (callback) {
+  var key = "user:" + this.name + ":topics";
+  redis.smembers(key, callback);
+});
+// end instance methods
+
+// serialization
 schema.options.toJSON = {
   transform: function(doc, ret, options) {
     return  {
@@ -39,4 +69,4 @@ schema.options.toJSON = {
   }
 };
 
-module.exports = mongoose.model('users', schema);
+module.exports = mongoose.model('User', schema);

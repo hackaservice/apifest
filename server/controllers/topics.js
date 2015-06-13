@@ -1,6 +1,7 @@
 var interfaces = require('../interfaces.js'),
   Joi = require('joi'),
   Topics = require('../models/Topics'),
+  User = require('../models/User'),
   _ = require('lodash');
 
 var db = require('../db.js');
@@ -49,13 +50,17 @@ routes.push({
   handler: function (req, reply) {
     console.log('topics:mine', req.params);
 
-    var user = req.params.name;
-
-    if (!user) {
+    var userName = req.params.name;
+    if (!userName) {
       return reply([]);
     }
 
-    return db.getTopicsByUser(user, reply);
+    return User.findByName(userName, function(err, user) {
+      if (err) return reply(err);
+      if (!user) return reply([]);
+
+      return user.getTopics(reply);
+    });
   }
 });
 

@@ -35,11 +35,11 @@ angular.module('socket.services', [])
 
         var isConnected = false;
         //Create socket and connect to http://chat.socket.io
-        var myIoSocket = io.connect('http://146.155.116.26');
+        var myIoSocket = io.connect('http://146.155.116.26:3001');
 
-        myIoSocket.on('connect',function(){
+        myIoSocket.on('connect', function(){
             isConnected = true;
-            console.log('Me conecte al socket de Daniel')
+            myIoSocket.emit('connection', {});
         });
 
         mySocket = socketFactory({

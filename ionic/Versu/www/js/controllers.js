@@ -1,6 +1,6 @@
 angular.module('versu.controllers', [])
 
-    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService) {
+    .controller('MainCtrl', function ($scope, $rootScope, $state, $ionicModal, $timeout, UserTwitterService, socket) {
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
@@ -42,16 +42,23 @@ angular.module('versu.controllers', [])
 
 
 
-    .controller('HomeCtrl', function ($scope, $rootScope, $ionicPlatform, $state, UserTwitterService, TopicService) {
+    .controller('HomeCtrl', function ($scope, $rootScope, $ionicPlatform, $state, UserTwitterService, TopicService, $ionicSlideBoxDelegate) {
 
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
 
+        $scope.page = { topics : []};
+
+        TopicService.getTopics($scope.twitterUserData, function(response) {
+            console.log(response);
+            for(var i=0 ; i<response.length ; i++) {
+                $scope.page.topics.push(response[i]);
+                $ionicSlideBoxDelegate.update();
+            }
+        });
+
         $scope.getTopics = function() {
-            TopicService.getTopics($scope.twitterUserData, function(response) {
-                console.log(response);
-                return response;
-            });
+            return $scope.page.topics;
         };
 
         $scope.enterSearch = function() {
@@ -69,8 +76,9 @@ angular.module('versu.controllers', [])
     })
 
 
+    .controller('VersuTopicChat', function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform){
 
-
+    })
 
 
     .controller('ChatController',function($scope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform) {

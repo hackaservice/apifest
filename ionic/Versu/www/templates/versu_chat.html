@@ -1,13 +1,9 @@
-<ion-view view-title="{{actualTopic}}" class="light-grey">
+<ion-view view-title="{{actualTopic}}">
 
     <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-chevron-left" menu-toggle=""></button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        
-    </ion-nav-buttons>
-
-
+    <ion-nav-buttons side="right"></ion-nav-buttons>
     <ion-content>
         <div class="list" ng-init="loadChatTopic()">
             <a class="item item-avatar" href="#" ng-repeat="newMessage in data.messages">
@@ -18,13 +14,12 @@
         </div>
 
         <div class="bar-footer">
-            <label class="item-input-wrapper line-light-grey nopadtop">
+            <label class="item-input-wrapper">
                 <input class="line-light-grey" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
+                <div class="send-button">
+                    <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
+                </div>
             </label>
-            <div class="divsend">
-                <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
-            </div>
         </div>
     </ion-content>
-
 </ion-view>

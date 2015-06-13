@@ -1,7 +1,7 @@
 <ion-view view-title="Trending Topics" class="background">
 
     <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-android-exit" menu-toggle="right"></button>
+        <button class="button button-icon button-clear ion-android-exit" ng-click="logout()"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
@@ -24,7 +24,7 @@
                         <p class="context-description">descripcion</p>
                     </div>
                     <div class="item">
-                        <button class="button button-outline button-royal button-block">
+                        <button class="button button-outline button-royal button-block" ng-click="enterTopic(topic)">
                             Comentar
                         </button>
                     </div>

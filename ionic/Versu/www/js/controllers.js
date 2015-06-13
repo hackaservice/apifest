@@ -76,6 +76,10 @@ angular.module('versu.controllers', [])
             }
         });
 
+        $scope.logout = function() {
+
+        }
+
         $scope.getTopics = function() {
             return $scope.page.topics;
         };
@@ -96,7 +100,7 @@ angular.module('versu.controllers', [])
     })
 
 
-    .controller('VersuTopicChat', function($scope, $rootScope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform, UserTwitterService){
+    .controller('VersuTopicChat', function($scope, $rootScope, $stateParams, socket, $sanitize, $ionicScrollDelegate, $timeout, $ionicPlatform, UserTwitterService, $ionicHistory){
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
         $scope.actualTopic = $stateParams.topic;
@@ -130,6 +134,11 @@ angular.module('versu.controllers', [])
                     $ionicScrollDelegate.scrollBottom();
                 }
             });
+        };
+
+        $scope.backToHome = function() {
+            console.log('Se obliga el evento de back!');
+            $ionicHistory.goBack(-1);
         };
 
         $scope.sendMessage = function() {

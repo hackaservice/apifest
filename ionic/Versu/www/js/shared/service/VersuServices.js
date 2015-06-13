@@ -172,7 +172,6 @@ angular.module('versu.services', [])
         //Se obtienen los datos del perfil del usuario en twitter
         console.log('VersuService: Se obitenen los datos del perfil del usuario');
         TwitterService.getTwitterProfile().then(function (resUserData){
-            console.log('VersuService: Se obtiene el perfil de usuario de twitter: ' + resUserData);
             userTwitterData = resUserData;
             callback(twitterLoginData, userTwitterData);
             return;
@@ -184,14 +183,11 @@ angular.module('versu.services', [])
             initialization: function (callback) {
                 //Se autentica el usuario en twitter
                 if (TwitterService.isAuthenticated() == true) {
-                    console.log('VersuService: El usuario ya se encuentra logeado en twitter');
                     twitterLoginData = TwitterService.getStoredToken();
                     getTwitterUserProfile(callback);
                 }
                 else {
-                    console.log('VersuService: El usuario se debe autenticar en twitter');
                     TwitterService.initialize().then(function (result) {
-                        console.log('VersuService: respuesta de login de usuario en twitter: ' + result);
                         if (result === true) {
                             twitterLoginData = TwitterService.getStoredToken();
                             getTwitterUserProfile(callback);

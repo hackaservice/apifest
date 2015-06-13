@@ -5,7 +5,8 @@
 angular.module('versu.login', [])
 
 .controller('LoginCtrl', function($scope, $state, TwitterService, UserTwitterService, $ionicHistory){
-
+    //se limpia el historial
+    $ionicHistory.clearHistory();
     $scope.showLoginButton = true;
 
     $scope.userLoginData = {};
@@ -16,7 +17,7 @@ angular.module('versu.login', [])
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
-            $state.go('app.home');
+            $state.go('login');
         });
     };
 

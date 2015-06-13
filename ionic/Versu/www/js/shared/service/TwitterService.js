@@ -44,6 +44,9 @@ angular.module('twitterApi', [])
 
     function createTwitterGetUserProfileSignature(method, url) {
         var token = angular.fromJson(getStoredToken());
+        if(token==null) {
+            token = {};
+        }
         var oauthObject = {
             oauth_consumer_key: clientId,
             oauth_nonce: $cordovaOauthUtility.createNonce(32),
@@ -125,18 +128,20 @@ angular.module('twitterApi', [])
 
             createTwitterGetUserProfileSignature('GET',
                 'https://api.twitter.com/1.1/users/show.json');
-
-            $http.get("https://api.twitter.com/1.1/users/show.json",
-                {params: { screen_name: token.screen_name}})
-                .success(function (result) {
-                    console.log('Service: Se recibe respuesta de datos de perfil de twitter: ' + result);
-                    deferred.resolve(result);
-                })
-                .error(function (error) {
-                    console.log('Service: Error al solicitar datos de perfil de usuario: ' + error);
-                    alert("There was a problem getting your profile");
-                    deferred.reject(false);
-                });
+            try {
+                $http.get("https://api.twitter.com/1.1/users/show.json",
+                    {params: { screen_name: token.screen_name}})
+                    .success(function (result) {
+                        deferred.resolve(result);
+                    })
+                    .error(function (error) {
+                        alert("There was a problem getting your profile");
+                        deferred.reject(false);
+                    });
+            }
+            catch (err) {
+                deferred.reject(false);
+            }
             return deferred.promise;
         },
         storeUserToken: storeUserToken,

@@ -61,7 +61,7 @@ angular.module('versu.controllers', [])
 
 
 
-    .controller('HomeCtrl', function ($scope, $rootScope, $ionicPlatform, $state, UserTwitterService, TopicService, $ionicSlideBoxDelegate) {
+    .controller('HomeCtrl', function ($scope, $rootScope, $ionicPlatform, $state, UserTwitterService, TwitterService, TopicService, $ionicSlideBoxDelegate, $ionicHistory) {
 
         $scope.twitterUserData = UserTwitterService.getTwitterUserData();
         $scope.loginData = UserTwitterService.getTwitterLoginData();
@@ -77,8 +77,13 @@ angular.module('versu.controllers', [])
         });
 
         $scope.logout = function() {
-
-        }
+            console.log('llamando a logout');
+            TwitterService.storeUserToken(null);
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('login');
+        };
 
         $scope.getTopics = function() {
             return $scope.page.topics;

@@ -66,6 +66,7 @@ angular.module('starter',
 
     .state('app.versuchat', {
       url: "/versuchat/:topic",
+      cache: false,
       views: {
           'menuContent': {
               templateUrl: "templates/versu_chat.html",

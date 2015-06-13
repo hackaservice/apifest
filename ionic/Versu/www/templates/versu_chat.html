@@ -9,8 +9,8 @@
 
 
     <ion-content>
-        <div class="list">
-            <a class="item item-avatar" href="#" ng-repeat="newMessage in $scope.data.messages">
+        <div class="list" ng-init="loadChatTopic()">
+            <a class="item item-avatar" href="#" ng-repeat="newMessage in data.messages">
                 <img ng-src="{{newMessage.image}}">
                 <h2>{{newMessage.name}}</h2>
                 <p>{{newMessage.message}}</p>

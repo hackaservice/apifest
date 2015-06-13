@@ -2,19 +2,9 @@
 @import "_login.css";
 @import "_home.css";
 @import "_menu.css";
+@import "_chat.css";
 
 /* Empty. Add your own CSS if you like */
-
-/*
-INICIO CSS PARA MOSTRAR FOTOS DE PERFIL
-*/
-
-/*
-FIN CSS PARA MOSTRAR FOTOS DE PERFIL
-*/
-
-
-
 
 
 /*
@@ -79,25 +69,10 @@ input.white{
     border:0px;
 }
 
-.line-light-grey{
-    background-color: #EDEBEE;
-    border:none;
-    border-bottom: 1px solid #8DB4B4;
-}
-
 .bottommsg{
     position: fixed;
     bottom:0px;
     width: 100%;
-}
-
-.divsend{
-    background-color:#D5D5D9;
-    margin-left: 7px;
-}
-
-.iconsend{
-    font-size: 18px;
 }
 
 .width70{

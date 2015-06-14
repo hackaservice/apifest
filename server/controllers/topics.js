@@ -22,7 +22,11 @@ routes.push({
     description: 'get available topics for calling user',
     response: {
       schema : Joi.array().items({
-        name: Joi.string().required()
+        name: Joi.string().required(),
+        text: Joi.string(),
+        image: Joi.string(),
+        user: Joi.string(),
+        timestamp: Joi.string()
       })
     }
   },

@@ -17,6 +17,7 @@
 
 .input-bar-footer {
   width: 100%;
+  position: fixed;
 }
 
 .send-button {

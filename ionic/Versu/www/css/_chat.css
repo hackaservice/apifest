@@ -1,9 +1,9 @@
 .item-input-wrapper {
-  border-top: 1px solid #ececec;
   background-color: #FFF;
   border-radius: 0;
   padding-right: 0px; 
   padding-left: 5px;
+  overflow-y: none; 
 }
 
 .line-light-grey{

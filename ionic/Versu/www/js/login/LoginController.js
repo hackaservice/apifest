@@ -17,7 +17,7 @@ angular.module('versu.login', [])
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
-            $state.go('login');
+            $state.go('app.home');
         });
     };
 

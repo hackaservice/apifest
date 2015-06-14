@@ -141,6 +141,10 @@ angular.module('versu.controllers', [])
             });
         };
 
+        $scope.hackScroll = function() {
+            $ionicScrollDelegate.scrollBottom();
+        };
+
         $scope.backToHome = function() {
             console.log('Se obliga el evento de back!');
             $ionicHistory.goBack(-1);

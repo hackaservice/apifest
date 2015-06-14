@@ -22,7 +22,7 @@
     <ion-footer-bar keyboard-attach>
         <div class="bar-footer input-bar-footer">
             <label class="item-input-wrapper">
-                <input class="line-light-grey" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
+                <input class="line-light-grey" type="text" ng-click="hackScroll()"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
                 <div class="send-button">
                     <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
                 </div>

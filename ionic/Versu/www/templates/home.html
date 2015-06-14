@@ -16,12 +16,12 @@
                     </div>
 
                     <div class="item item-body">
-                        <img src="#" alt="">
+                        <img src={{topic.image}} alt="">
                         <div class="item-user">
-                            <h3>@username</h3>
-                            <p>timestamp</p>
+                            <h3>{{topic.user}}</h3>
+                            <p>{{topic.timestamp}}</p>
                         </div>
-                        <p class="context-description">descripcion</p>
+                        <p class="context-description">{{topic.text}}</p>
                     </div>
                     <div class="item">
                         <button class="button button-outline button-royal button-block" ng-click="enterTopic(topic)">

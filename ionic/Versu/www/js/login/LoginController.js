@@ -21,12 +21,15 @@ angular.module('versu.login', [])
         });
     };
 
-    if(TwitterService.getStoredToken()!==null) {
-        $scope.showLoginButton = false;
-        doLogin();
-    }
-    else {
-        console.log('Usuario debe autenticarse antes de entrar a la app');
+    $scope.verifyLogin = function() {
+        $scope.showLoginButton = true;
+        if(TwitterService.getStoredToken()!==null) {
+            $scope.showLoginButton = false;
+            doLogin();
+        }
+        else {
+            console.log('Usuario debe autenticarse antes de entrar a la app');
+        };
     };
 
     $scope.login = function() {

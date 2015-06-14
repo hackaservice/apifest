@@ -20,6 +20,10 @@ angular.module('twitterApi', [])
 
             // 2
     function storeUserToken(data) {
+        if(data==null) {
+            console.log('eliminando de localstorage');
+            window.localStorage.removeItem(twitterKey);
+        }
         window.localStorage.setItem(twitterKey, JSON.stringify(data));
     };
 

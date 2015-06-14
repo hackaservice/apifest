@@ -19,14 +19,24 @@
             </a>
         </div>
     </ion-content>
+    <!--
     <ion-footer-bar keyboard-attach>
-        <div class="bar-footer input-bar-footer">
+        <div class="bar-footer input-bar-footer" ng-click="hackScroll()">
             <label class="item-input-wrapper">
-                <input class="line-light-grey" type="text" ng-click="hackScroll()"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage();">
+                <input class="line-light-grey" type="text"  placeholder="Message" ng-model="draft.message" ng-enter="sendMessage()">
                 <div class="send-button">
-                    <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage();"></button>
+                    <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage()"></button>
                 </div>
             </label>
         </div>
+    </ion-footer-bar>
+    -->
+    <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+        <label class="item-input-wrapper">
+            <!-- on-return="sendMessage(); closeKeyboard()" on-focus="inputUp()" on-blur="inputDown()" -->
+            <input type="text" class="line-light-grey" placeholder="Type your message" ng-model="draft.message" ng-enter="sendMessage()"/>
+        </label>
+        <!-- button button-clear -->
+        <button class="button button-clear ion-android-send iconsend" ng-click="sendMessage()"></button>
     </ion-footer-bar>
 </ion-view>

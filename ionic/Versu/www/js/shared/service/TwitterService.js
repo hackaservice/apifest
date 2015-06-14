@@ -24,7 +24,9 @@ angular.module('twitterApi', [])
             console.log('eliminando de localstorage');
             window.localStorage.removeItem(twitterKey);
         }
-        window.localStorage.setItem(twitterKey, JSON.stringify(data));
+        else {
+            window.localStorage.setItem(twitterKey, JSON.stringify(data));
+        }
     };
 
     function getStoredToken() {

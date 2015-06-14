@@ -7,13 +7,13 @@ angular.module('versu.login', [])
 .controller('LoginCtrl', function($scope, $state, TwitterService, UserTwitterService, $ionicHistory){
     //se limpia el historial
     $ionicHistory.clearHistory();
-    $scope.showLoginButton = true;
+    $scope.showLoginButton = false;
 
     $scope.userLoginData = {};
 
     var doLogin = function () {
         UserTwitterService.initialization(function (loginData, userData) {
-            //console.log('login: se recupera info de usuario: ' + loginData + ' / ' + userData);
+            console.log('login: se recupera info de usuario: ' + loginData + ' / ' + userData);
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
@@ -28,6 +28,7 @@ angular.module('versu.login', [])
             doLogin();
         }
         else {
+            $scope.showLoginButton = true;
             console.log('Usuario debe autenticarse antes de entrar a la app');
         };
     };

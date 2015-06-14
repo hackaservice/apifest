@@ -16,7 +16,8 @@ angular.module('starter',
         'socket.services',
         'ngSanitize',
         'btford.socket-io',
-        'versus.directives'
+        'versus.directives',
+        'angularMoment'
     ]
 )
 

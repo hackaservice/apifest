@@ -13,7 +13,8 @@
             <a class="item chat-list-item item-avatar" href="#" ng-repeat="newMessage in data.messages">
                 <img ng-src="{{newMessage.image}}">
                 <h2>{{newMessage.name}}</h2>
-                <p>timestamp</p>
+                <!--<p>{{newMessage.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>-->
+                <time am-time-ago="newMessage.date"></time>
                 <p class="message">{{newMessage.message}}</p>
             </a>
         </div>

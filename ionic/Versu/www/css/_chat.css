@@ -28,3 +28,42 @@
 .iconsend{
   font-size: 21px;
 }
+
+.chat-list-item:nth-child(even) {
+  background-color: #FAFAFA;
+}
+
+.chat-list-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  float: left;
+}
+
+.chat-list-item h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #673AB7;
+  font-weight: bold;
+}
+
+.chat-list-item p {
+  margin: 0;
+  font-size: 12px;
+  color: #9B9B9B;
+}
+
+.chat-list-item p.message {
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  margin-top: 10px;
+  color: #4A4A4A;
+  margin-top: 10px;
+  padding: 0;
+  width: 100%;
+  display: block;
+  overflow: initial;
+  text-overflow: initial;
+  white-space: normal;
+}

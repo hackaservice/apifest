@@ -10,10 +10,11 @@
 
     <ion-content>
         <div class="list" ng-init="loadChatTopic()">
-            <a class="item item-avatar" href="#" ng-repeat="newMessage in data.messages">
+            <a class="item chat-list-item item-avatar" href="#" ng-repeat="newMessage in data.messages">
                 <img ng-src="{{newMessage.image}}">
                 <h2>{{newMessage.name}}</h2>
-                <p>{{newMessage.message}}</p>
+                <p>timestamp</p>
+                <p class="message">{{newMessage.message}}</p>
             </a>
         </div>
 
